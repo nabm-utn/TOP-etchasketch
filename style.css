@@ -1,0 +1,23 @@
+.main-div {
+    width: 80vmin;
+    height: 80vmin;
+    padding: 2px;
+    border: 5px black solid;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.point-div {
+    border: 1px lightgray solid;
+    padding: 0px;
+    margin: 0px;
+    font-size: small;
+    text-align: center;
+}
+
+.point-div:hover{
+    transition: 0.05s;
+}
