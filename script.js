@@ -1,12 +1,13 @@
 let isDrawing = false;
 
+const rainbow = true;
+
 
 function createGrid(gridSize) {
     const container = document.querySelector(".container");
     
     // cleans older grid
     while (container.firstChild) {
-        console.log("im here!")
         container.lastChild.removeEventListener("mousemove", fillUp);
         container.removeChild(container.lastChild);
     }
@@ -15,6 +16,7 @@ function createGrid(gridSize) {
     container.style.display = "grid";
     container.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
     container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+    if (rainbow) {container.style.backgroundColor = "rgba(0, 0, 0, 1)"};
 
     // populates grid with divs
     for (let col = 1; col < gridSize + 1; col ++) {
@@ -26,6 +28,7 @@ function createGrid(gridSize) {
             pointDiv.style.gridRowEnd = row + 1;
             pointDiv.setAttribute("draggable", false);
             pointDiv.style.backgroundColor = "rgba(0, 0, 0, 0.0)"
+            if (rainbow) {pointDiv.style.backgroundColor = "rgba(255, 255, 255, 0.99)"};
             pointDiv.classList.add("point-div")
             pointDiv.addEventListener("mousemove", fillUp);
             container.appendChild(pointDiv);
@@ -63,11 +66,24 @@ function darkening(colorString) {
     return array2rgba(color);
 }
 
+function randomDarkening(colorString) {
+    let color = rgba2array(colorString);
+    color[0] = 100 + Math.floor(Math.random() * 156);
+    color[1] = 100 + Math.floor(Math.random() * 156);
+    color[2] = 100 + Math.floor(Math.random() * 156);
+    color[3] = parseFloat(color[3]) - 0.05;
+    return array2rgba(color);
+}
+
 function fillUp(e) {
     if (!isDrawing) {return}
     const div = e.target;
     let color = div.style.backgroundColor;
+    if (rainbow) {
+        div.style.backgroundColor = randomDarkening(color);
+    } else {
     div.style.backgroundColor = darkening(color);
+    }
 }
 
 const restartButton = document.querySelector("#restart-button");
@@ -82,6 +98,5 @@ body.addEventListener("mouseup", e => {
 })
 
 createGrid(16);
-s
 
 
