@@ -4,6 +4,8 @@ function createGrid(gridSize) {
     
     // cleans older grid
     while (container.firstChild) {
+        console.log("im here!")
+        container.lastChild.removeEventListener("mouseover", fillUp);
         container.removeChild(container.lastChild);
     }
     
@@ -22,9 +24,14 @@ function createGrid(gridSize) {
             pointDiv.style.gridRowEnd = row + 1;
             pointDiv.style.backgroundColor = "rgba(0, 0, 0, 0.0)"
             pointDiv.classList.add("point-div")
+            pointDiv.addEventListener("mouseover", fillUp);
             container.appendChild(pointDiv);
         }
     }
+
+    // adds event listeners
+    // const pointDivs = document.querySelectorAll(".point-div");
+    // pointDivs.forEach(div => div.addEventListener("mouseover", fillUp));
 }
 
 function restartGrid() {
@@ -64,9 +71,7 @@ createGrid(16);
 const restartButton = document.querySelector("#restart-button");
 restartButton.addEventListener("click", restartGrid);
 
-const pointDivs = document.querySelectorAll(".point-div");
-console.log(pointDivs); 
-pointDivs.forEach(div => div.addEventListener("mouseover", fillUp));
+
 
 
 
