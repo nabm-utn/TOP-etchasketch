@@ -1,3 +1,5 @@
+let isDrawing = false;
+
 
 function createGrid(gridSize) {
     const container = document.querySelector(".container");
@@ -5,7 +7,7 @@ function createGrid(gridSize) {
     // cleans older grid
     while (container.firstChild) {
         console.log("im here!")
-        container.lastChild.removeEventListener("mouseover", fillUp);
+        container.lastChild.removeEventListener("mousemove", fillUp);
         container.removeChild(container.lastChild);
     }
     
@@ -22,9 +24,10 @@ function createGrid(gridSize) {
             pointDiv.style.gridColumnEnd = col + 1;
             pointDiv.style.gridRowStart = row;
             pointDiv.style.gridRowEnd = row + 1;
+            pointDiv.setAttribute("draggable", false);
             pointDiv.style.backgroundColor = "rgba(0, 0, 0, 0.0)"
             pointDiv.classList.add("point-div")
-            pointDiv.addEventListener("mouseover", fillUp);
+            pointDiv.addEventListener("mousemove", fillUp);
             container.appendChild(pointDiv);
         }
     }
@@ -56,22 +59,29 @@ function array2rgba(array) {
 
 function darkening(colorString) {
     let color = rgba2array(colorString);
-    color[3] = parseFloat(color[3]) + 0.1;
+    color[3] = parseFloat(color[3]) + 0.13;
     return array2rgba(color);
 }
 
 function fillUp(e) {
+    if (!isDrawing) {return}
     const div = e.target;
     let color = div.style.backgroundColor;
     div.style.backgroundColor = darkening(color);
 }
 
-createGrid(16);
-
 const restartButton = document.querySelector("#restart-button");
 restartButton.addEventListener("click", restartGrid);
 
+const body = document.querySelector("body");
+body.addEventListener("mousedown", e => {
+    isDrawing = true;
+})
+body.addEventListener("mouseup", e => {
+    isDrawing = false;
+})
 
-
+createGrid(16);
+s
 
 

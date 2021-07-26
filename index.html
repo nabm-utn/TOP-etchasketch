@@ -6,11 +6,11 @@
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
-<body>
+<body ondragstart="return false;" ondrop="return false;">
 <h1>This is NABM's sketchboard</h1>
 <div class="main-div">
-    <div class="meta-container">
-        <div class="container"></div>
+    <div class="meta-container" draggable="false">
+        <div class="container" draggable="false"></div>
     </div>
     <button id="restart-button">Restart Board</button>
 </div>
